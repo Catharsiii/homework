@@ -1,0 +1,65 @@
+def proverka(v1, v2):
+    '''
+    Функция принимает в качестве аргументов два списка из чисел
+    и проверяет,являются ли частные соответсвенных координат равными
+    '''
+
+    flag = 0
+    tup = list(map(lambda v1, v2: (v1, v2), v1, v2))
+    delimoe = list(map(lambda tup: tup[0], tup))
+    delitel = list(map(lambda tup: tup[1], tup))
+    #print(tup, '\n', delimoe, '\n', delitel)
+    coeff = []
+    for i in range(len(tup)):
+        coeff.append(delimoe[i] / delitel[i])
+    if coeff[0] == coeff[1] and coeff[2] == coeff[-1] and coeff[1] == coeff[2]:
+        flag = 1 
+    else:
+        return "T"
+
+#1. Заданы два вектора. Найти расстояние между концами этих векторов
+
+v1 = [1, 4, 6]
+v2 = [25, 6, 9]
+def dist (v1, v2):
+    '''
+    Функция в качестве аргументов принимает два списка из чисел
+    с равным количеством элементов и создает новый список, элементами которого являются
+    '''
+	#Проверка на коллинеарность векторов v1, v2
+    if proverka(v1, v2) == "T":
+    #Находим длину вектора v2v1
+        v1_v2 = list(map(lambda v1, v2: v2 - v1, v1, v2))
+        summ = 0
+        distance = 0
+        for elem in v1_v2:
+            summ += elem ** 2
+            distance = summ ** 0.5    
+    return distance
+
+#2. Заданы два вектора. Найти диагональ параллелограмма (вектор), построенного на заданных векторах. Длину вектора и координаты конца.
+
+v1 = [1, 4, 6]
+v2 = [3, 16, 24]
+destination = input("укажите направление вектора: ")
+def vector (v1,v2, destination):
+    '''
+    Функция в качестве аргументов принимает два списка из чисел
+    с равным количеством элементов и строку, ввоядщуюся с консоли, которая задает направление. Вoзвращаеn
+    '''
+    if proverka (v1,v2) == "T":
+        #нахождение диагонали (вектора)
+        if destination == "v1v2":
+            v1_v2 = list(map(lambda v1, v2: v2 - v1, v1, v2))
+            length = dist(v1, v2)
+            return v1_v2, length, "Координаты конца:", v2
+        elif destination == "v2v1":
+            v1_v2 = list(map(lambda v1, v2: v1 - v2, v1, v2))
+            c = v1
+            v1 = v2
+            v2 = c
+            length = dist(v1, v2)
+            return "диагональ параллелограмма(вектор):", v1_v2,"длина диагонали", length, "Координаты конца:", v1
+print(vector(v1,v2, destination))
+			
+	
